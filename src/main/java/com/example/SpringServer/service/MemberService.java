@@ -13,12 +13,14 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public MemberDto.Response join(MemberDto.Form form) {
-        String encodedPassword = passwordEncoder.encode(form.getPassword());
+    public MemberDto.Response join(MemberDto.Request request) {
+        String email = request.getEmail();
+        String nickname = request.getNickname();
+        String encodedPassword = passwordEncoder.encode(request.getPassword());
         Member member = Member.builder()
-                .email(form.getEmail())
+                .email(email)
                 .password(encodedPassword)
-                .nickname(form.getNickname())
+                .nickname(nickname)
                 .build();
         Member created = memberRepository.save(member);
         return MemberDto.Response.builder()

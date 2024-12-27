@@ -1,27 +1,24 @@
 package com.example.SpringServer.model.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
-public class MemberDto {
-
+public class AuthDto {
     @Getter
     @Setter
     @Builder
-    @AllArgsConstructor
-    @NoArgsConstructor
     public static class Request {
         private String email;
         private String password;
-        private String nickname;
     }
 
     @Getter
     @Setter
-    @Builder
     @AllArgsConstructor
-    @NoArgsConstructor
+    @Builder
     public static class Response {
-        private String email;
-        private String nickname;
+        private String token;
     }
 }

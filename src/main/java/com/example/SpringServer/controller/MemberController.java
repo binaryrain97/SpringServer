@@ -14,11 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("/api/member")
 public class MemberController {
+
     private final MemberService memberService;
 
     @PostMapping("/join")
-    public ResponseEntity<MemberDto.Response> join(@RequestBody MemberDto.Form form) {
-        MemberDto.Response created = memberService.join(form);
+    public ResponseEntity<MemberDto.Response> join(@RequestBody MemberDto.Request request) {
+        MemberDto.Response created = memberService.join(request);
         return ResponseEntity.status(HttpStatus.OK).body(created);
     }
 }
