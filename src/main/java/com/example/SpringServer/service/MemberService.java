@@ -17,6 +17,14 @@ public class MemberService {
         String email = request.getEmail();
         String nickname = request.getNickname();
         String encodedPassword = passwordEncoder.encode(request.getPassword());
+
+        if(memberRepository.existsByEmail(email)) {
+            throw new RuntimeException("email already exists");
+        }
+        if(memberRepository.existsByNickname(nickname)) {
+            throw new RuntimeException("nickname already exists");
+        }
+
         Member member = Member.builder()
                 .email(email)
                 .password(encodedPassword)

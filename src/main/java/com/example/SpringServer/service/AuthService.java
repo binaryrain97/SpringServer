@@ -21,7 +21,9 @@ public class AuthService {
     public JwtToken login(AuthDto.Request loginRequest) {
         String email = loginRequest.getEmail();
         String password = loginRequest.getPassword();
-        Member member = memberRepository.findByEmail(email).orElseThrow();
+        Member member = memberRepository.findByEmail(email).orElseThrow(
+                () -> new RuntimeException("no match email!")
+        );
         if(!passwordEncoder.matches(password, member.getPassword())) {
             throw new BadCredentialsException("password incorrect");
         }
