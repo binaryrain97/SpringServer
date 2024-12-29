@@ -25,11 +25,7 @@ public class MemberService {
             throw new RuntimeException("nickname already exists");
         }
 
-        Member member = Member.builder()
-                .email(email)
-                .password(encodedPassword)
-                .nickname(nickname)
-                .build();
+        Member member = new Member(email, encodedPassword, nickname);
         Member created = memberRepository.save(member);
         return MemberDto.Response.builder()
                 .email(created.getEmail())

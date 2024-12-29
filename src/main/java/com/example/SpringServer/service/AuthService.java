@@ -27,7 +27,7 @@ public class AuthService {
         if(!passwordEncoder.matches(password, member.getPassword())) {
             throw new BadCredentialsException("password incorrect");
         }
-        String accessToken = jwtUtil.generateToken(email);
+        String accessToken = jwtUtil.generateToken(String.valueOf(member.getId()));
         return JwtToken.builder()
                 .accessToken(accessToken)
                 .build();
