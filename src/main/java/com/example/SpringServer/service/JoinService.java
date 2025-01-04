@@ -1,5 +1,6 @@
 package com.example.SpringServer.service;
 
+import com.example.SpringServer.model.dto.JoinDto;
 import com.example.SpringServer.model.dto.MemberDto;
 import com.example.SpringServer.model.entity.Member;
 import com.example.SpringServer.repository.MemberRepository;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class MemberService {
+public class JoinService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -30,6 +31,22 @@ public class MemberService {
         return MemberDto.Response.builder()
                 .email(created.getEmail())
                 .nickname(created.getNickname())
+                .build();
+    }
+
+    public JoinDto.EmailCheckResponse checkEmailDuplicated(String email) {
+        boolean duplicated = memberRepository.existsByEmail(email);
+        return JoinDto.EmailCheckResponse.builder()
+                .email(email)
+                .duplicated(duplicated)
+                .build();
+    }
+
+    public JoinDto.NicknameCheckResponse checkNicknameDuplicated(String nickname) {
+        boolean duplicated = memberRepository.existsByNickname(nickname);
+        return JoinDto.NicknameCheckResponse.builder()
+                .nickname(nickname)
+                .duplicated(duplicated)
                 .build();
     }
 }
